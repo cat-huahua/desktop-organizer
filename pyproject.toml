@@ -1,0 +1,104 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "desktop-organizer"
+version = "0.1.0"
+description = "A CLI tool for organizing desktop icons into categorized folders"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.8"
+authors = [
+    {name = "Your Name", email = "your.email@example.com"},
+]
+keywords = ["desktop", "organizer", "icons", "files", "cli", "automation"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: System :: Filesystems",
+    "Topic :: Utilities",
+]
+dependencies = [
+    "click>=8.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "black>=22.0.0",
+    "ruff>=0.1.0",
+    "mypy>=1.0.0",
+    "pre-commit>=3.0.0",
+]
+
+[project.scripts]
+desktop-organizer = "desktop_organizer.cli:main"
+deskclean = "desktop_organizer.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/yourusername/desktop-organizer"
+Documentation = "https://github.com/yourusername/desktop-organizer#readme"
+Repository = "https://github.com/yourusername/desktop-organizer.git"
+"Bug Tracker" = "https://github.com/yourusername/desktop-organizer/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/desktop_organizer"]
+
+[tool.black]
+line-length = 100
+target-version = ["py38", "py39", "py310", "py311", "py312"]
+
+[tool.ruff]
+line-length = 100
+select = ["E", "F", "I", "W", "N", "D", "UP", "B", "C4", "SIM"]
+ignore = ["D100", "D104", "D107"]
+target-version = "py38"
+
+[tool.ruff.pydocstyle]
+convention = "google"
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "--strict-markers",
+    "--strict-config",
+    "--verbose",
+    "--cov=desktop_organizer",
+    "--cov-report=term-missing",
+    "--cov-report=html",
+]
+
+[tool.coverage.run]
+source = ["src/desktop_organizer"]
+omit = ["*/tests/*", "*/test_*"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if __name__ == .__main__.:",
+    "raise AssertionError",
+    "raise NotImplementedError",
+]
